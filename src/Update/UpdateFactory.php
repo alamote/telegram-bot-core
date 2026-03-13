@@ -13,9 +13,10 @@ class UpdateFactory implements UpdateFactoryInterface
 {
     /**
      * @param array $data
+     * @param bool $validate
      * @return \Bot\DTO\Update\UpdateDTO
      */
-    public static function create(array $data): UpdateDTO
+    public static function create(array $data, bool $validate = true): UpdateDTO
     {
         foreach (UpdateType::cases() as $case) {
             if (isset($data[$case->value])) {
@@ -26,7 +27,7 @@ class UpdateFactory implements UpdateFactoryInterface
                 };
 
                 /** @var \Bot\DTO\Update\UpdateDTO $dto */
-                $dto = $className::fromArray($data);
+                $dto = $className::fromArray($data, $validate);
 
                 return $dto;
             }

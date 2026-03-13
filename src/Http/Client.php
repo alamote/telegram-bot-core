@@ -15,9 +15,16 @@ class Client implements ClientInterface
     /**
      * @param string $token
      * @param array $config
+     * @param \GuzzleHttp\Client|null $httpClient
      */
-    public function __construct(string $token, array $config = [])
+    public function __construct(string $token, array $config = [], ?HttpClient $httpClient = null)
     {
+        if ($httpClient !== null) {
+            $this->client = $httpClient;
+
+            return;
+        }
+
         $config['base_uri'] = "https://api.telegram.org/bot$token/";
         $config['timeout'] = $config['timeout'] ?? 10;
 

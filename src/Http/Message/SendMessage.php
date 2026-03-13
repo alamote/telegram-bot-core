@@ -80,9 +80,11 @@ class SendMessage implements SendMessageInterface
     /**
      * @throws \JsonException
      */
-    public function jsonSerialize(): array
+    public function jsonSerialize(bool $validate = true): array
     {
-        $this->validate();
+        if ($validate) {
+            $this->validate();
+        }
 
         $payload = [
             ...$this->options,

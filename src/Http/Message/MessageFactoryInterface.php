@@ -9,5 +9,5 @@ interface MessageFactoryInterface
     /**
      * @return \Bot\Http\Message\SendMessageInterface
      */
-    public function create(): SendMessageInterface;
+    public static function create(): SendMessageInterface;
 }

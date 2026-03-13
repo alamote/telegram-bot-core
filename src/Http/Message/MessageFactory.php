@@ -9,7 +9,7 @@ class MessageFactory implements MessageFactoryInterface
     /**
      * @return \Bot\Http\Message\SendMessageInterface
      */
-    public function create(): SendMessageInterface
+    public static function create(): SendMessageInterface
     {
         return SendMessage::create();
     }

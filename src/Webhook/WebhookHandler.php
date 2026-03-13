@@ -20,11 +20,19 @@ class WebhookHandler implements WebhookHandlerInterface
      */
     public function handle(): ?array
     {
-        $input = file_get_contents('php://input');
+        $input = $this->readInput();
         if ($input === false) {
             return null;
         }
 
+        return $this->handleRaw($input);
+    }
+
+    /**
+     * Parse raw webhook payload.
+     */
+    public function handleRaw(string $input): ?array
+    {
         try {
             return json_decode($input, true, 512, JSON_THROW_ON_ERROR);
         } catch (\JsonException $e) {
@@ -32,5 +40,15 @@ class WebhookHandler implements WebhookHandlerInterface
 
             return null;
         }
+    }
+
+    /**
+     * Read raw input from php://input.
+     *
+     * @return string|false
+     */
+    protected function readInput(): string|false
+    {
+        return file_get_contents('php://input');
     }
 }

@@ -34,7 +34,7 @@ abstract class DTO implements \JsonSerializable
     {
         $self = new static();
         foreach ($data as $key => $value) {
-            $self->set($key, $value);
+            $self->set($key, $value, $validate);
         }
         if ($validate) {
             $self->validate();
@@ -90,9 +90,10 @@ abstract class DTO implements \JsonSerializable
     /**
      * @param string $property
      * @param mixed $value
+     * @param bool $validate
      * @return self
      */
-    public function set(string $property, mixed $value = null): self
+    public function set(string $property, mixed $value = null, bool $validate = true): self
     {
         if (!property_exists($this, $property)) {
             $this->setOption($property, $value);
@@ -107,7 +108,7 @@ abstract class DTO implements \JsonSerializable
             $className = $type->getName();
 
             if (is_subclass_of($className, self::class)) {
-                $value = $className::fromArray($value);
+                $value = $className::fromArray($value, $validate);
             }
         }
 

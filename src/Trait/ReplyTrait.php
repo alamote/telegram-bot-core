@@ -55,7 +55,7 @@ trait ReplyTrait
         $factory = $this->container->get(MessageFactoryInterface::class);
 
         return $client->sendMessage(
-            $factory->create()
+            $factory::create()
                     ->setChatId($this->getChatId())
                     ->setText($text)
                     ->setKeyboard($keyboard)

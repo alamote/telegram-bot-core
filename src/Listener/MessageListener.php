@@ -17,6 +17,9 @@ class MessageListener implements ListenerInterface
     {
     }
 
+    /**
+     * @param UnhandledEvent $event
+     */
     #[Listener(eventClass: UnhandledEvent::class)]
     public function onUnhandledEvent(UnhandledEvent $event): void
     {
